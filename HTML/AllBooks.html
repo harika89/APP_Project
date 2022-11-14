@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="C:\Users\Admin\.vscode\App_project\css\book.css">
+    <script>
+      //let bookId = "8036809654";
+    fetch("http://localhost:3001/getAllBooks", {
+      method:'GET',
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      appendData(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    function appendData(data) {
+        document.getElementById('test1').innerHTML = data.map(book => 
+    `<div>
+      <div>ISBN: ${book.book_id}</div>
+      <div>TITLE: ${book.title}</div>
+      <div>Pages: ${book.num_pages}</div>
+      <div>Author name: ${book.author_name}</div>
+      <div>Language: ${book.language_id}</div>
+
+      <div><img src=${book.book_cover} alt="image exists"></img></div>
+      
+    </div>`
+).join('')
+
+
+        // var mainContainer = document.getElementById("myData");
+        // for (var i = 0; i < data.length; i++) {
+        //     //console.log(data.length)
+        //     var div = document.createElement("div");
+        //     //div.innerHTML = 'Name: ' + data[i].title + 'Year: ' + data[i].publication_year;
+        //     var imageurl = data[i].book_cover;
+        //     console.log(imageurl);
+        //     document.getElementById("booktag").src = imageurl
+        //     document.getElementById("bname").innerText = "Title: " + data[i].title  
+        //     document.getElementById("bpages").innerText = "Number of Pages: " + data[i].num_pages
+        //     document.getElementById("isbn").innerText = "ISBN: " + data[i].book_id
+        //     document.getElementById("byear").innerText = "Published year: " + data[i].publication_year
+        //     document.getElementById("auname").innerText = "Author name: "+data[i].author_name
+        //     if(data[i].language_id == 1)
+        //     {
+        //       document.getElementById("blang").innerText = "Language: English"
+        //     }
+        //     else if(data[i].language_id == 2)
+        //     {
+        //       document.getElementById("blang").innerText = "Language: French"
+        //     }
+        //     else{
+        //       document.getElementById("blang").innerText = "Language: Spanish"
+        //     }
+
+            
+
+        //     mainContainer.appendChild(div);
+
+        //}
+    }
+    
+    </script>
+</head>
+<body>
+    
+<!-- header section starts  -->
+
+<header class="header">
+
+    <div class="header-1">
+
+        <a href="#" class="logo"> <i class="fas fa-book"></i> BOOK SHOP </a>
+
+       <div class="icons">
+            <div id="search-btn" class="fas fa-search"></div>
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart"></a>
+            <div id="login-btn" class="fas fa-user"></div>
+        </div>
+
+    </div>
+
+    <div class="header-2">
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#featured">featured</a>
+            <a href="#fiction">fiction</a>
+            <a href="#nonfiction">non-fiction</a>
+            <a href="#contactus">contact us</a>
+        </nav>
+    </div>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- bottom navbar  -->
+
+<nav class="bottom-navbar">
+    <a href="#home" class="fas fa-home"></a>
+    <a href="#featured" class="fas fa-list"></a>
+    <a href="#fiction" class="fas fa-tags"></a>
+    <a href="#non-fiction" class="fas fa-comments"></a>
+    <a href="#contactus" class="fas fa-blog"></a>
+</nav>
+<main class="container">
+ 
+    <!-- Left Column / Headphones Image -->
+    <div class="left-column">
+
+      <img id ="booktag" alt="image exists"></img>
+    </div>
+   
+   
+    <!-- Right Column -->
+    <div class="right-column" id="test1">
+      <div id="myData"></div>
+   
+      <!-- Product Description -->
+      <div class="product-description">
+        <h1 id="bname">[BOOK TITLE]</h1>
+        <h2 id="auname">[AUTHOR NAME]</h2>
+        <p id="bpages">[PAGES]</p>
+        <p id="blang">[LANGUAGE]</p>
+        <p id="byear">[PUBLISHED DATE]</p>
+        <p id="isbn">[ISBN]</p>
+      </div>
+
+    </div>
+  </main>
+</body>
