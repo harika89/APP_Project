@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookstore</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> -->
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -15,6 +15,35 @@
     <link rel="stylesheet" href="css/main.css">
 
 </head>
+<script>
+    const openBookDetailsPage = (bookId) =>{
+            console.log("Book details page opened with BookId: " + bookId);
+            window.location.href = `./BookDetails.html?bookId=${bookId}`;
+        }
+    //let bookId = "8036809654";
+  fetch("http://localhost:3001/getFeaturedBooks", {
+    method:'GET',
+    headers: {'Content-Type': 'application/json'},
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((res) => {
+    appendData(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  function appendData(data) {
+        document.getElementById('test1').innerHTML = data.map(book => 
+    `<div>
+        <div style="text-align: center;"><h1>Title: ${book.title}</h1></div>
+        <div style="text-align: center;"><img src=${book.book_cover} onclick="openBookDetailsPage(${book.book_id})"alt="image exists"></img></div>
+      
+    </div>`
+).join('')
+  }
+</script>
 <body>
     
 <!-- header section starts  -->
@@ -42,7 +71,7 @@
     <div class="header-2">
         <nav class="navbar">
             <a href="#home">home</a>
-            <a href="#featured">featured</a>
+            <a href="AllBooks.html">All Books</a>
             <a href="#fiction">fiction</a>
             <a href="#nonfiction">non-fiction</a>
             <a href="#contactus">contact us</a>
@@ -50,6 +79,7 @@
     </div>
 
 </header>
+
 
 <!-- header section ends -->
 
@@ -102,7 +132,6 @@
     </div>
 
 </section>
-
 </body>
 </html>
 
@@ -117,14 +146,6 @@
         <div class="content">
             <h3>free shipping</h3>
             <p>order over $100</p>
-        </div>
-    </div>
-
-    <div class="icons">
-        <i class="fas fa-lock"></i>
-        <div class="content">
-            <h3>secure payment</h3>
-            <p>100 secure payment</p>
         </div>
     </div>
 
@@ -149,72 +170,37 @@
 <!-- icons section ends -->
 
 <!-- featured section starts  -->
+<header class="header">
+    <div class="header-2">
+    <nav class="navbar">
+        <a>Featured Books</a>   
+    </nav>
+</div>
 
-<section class="featured" id="featured">
+</header>
 
-    <h1 class="heading"> <span>featured books</span> </h1>
-
-    <div class="swiper featured-slider">
-
-        <div class="swiper-wrapper">
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="image">
-                    <img src="images/book1.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">Want to Read</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="image">
-                    <img src="images/book2.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">Want to Read</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <div class="icons">
-                    <a href="#" class="fas fa-search"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="image">
-                    <img src="images/book3.jpg" alt="">
-                </div>
-                <div class="content">
-                    <h3>featured books</h3>
-                    <div class="price">$15.99 <span>$20.99</span></div>
-                    <a href="#" class="btn">Want to Read</a>
-                </div>
-            </div>
-
-            
-        </div>
-
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+<main class="container">
+ 
+   
+    <!-- Right Column -->
+    <div id="test1">
+      <div id="myData"></div>
+   
+      <!-- Product Description -->
+      <div class="product-description">
+        <h1 id="bname">[BOOK TITLE]</h1>
+        <h2 id="auname">[AUTHOR NAME]</h2>
+        <p id="bpages">[PAGES]</p>
+        <p id="blang">[LANGUAGE]</p>
+        <p id="byear">[PUBLISHED DATE]</p>
+        <p id="isbn">[ISBN]</p>
+      </div>
 
     </div>
-
-</section>
+  </main>
 
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
 <!-- featured section ends -->
-<script src="javascript/webp.js"></script>
+<!-- <script src="javascript/webp.js"></script> -->
 </body>
