@@ -14,6 +14,10 @@
     <!-- custom css file link  -->
     <link rel="stylesheet" href="C:\Users\Admin\.vscode\App_project\css\book.css">
     <script>
+        const openBookDetailsPage = (bookId) =>{
+            console.log("Book details page opened with BookId: " + bookId);
+            window.location.href = `./BookDetails.html?bookId=${bookId}`;
+        }
       //let bookId = "8036809654";
     fetch("http://localhost:3001/getAllBooks", {
       method:'GET',
@@ -31,48 +35,11 @@
     function appendData(data) {
         document.getElementById('test1').innerHTML = data.map(book => 
     `<div>
-      <div>ISBN: ${book.book_id}</div>
-      <div>TITLE: ${book.title}</div>
-      <div>Pages: ${book.num_pages}</div>
-      <div>Author name: ${book.author_name}</div>
-      <div>Language: ${book.language_id}</div>
-
-      <div><img src=${book.book_cover} alt="image exists"></img></div>
-      
+        <div><h2 style="text-align:center">Book Title : ${book.title}</h2></div>
+        <div style="text-align: center;"><img src=${book.book_cover} onclick="openBookDetailsPage(${book.book_id})"alt="image exists" ></img></div>
     </div>`
 ).join('')
 
-
-        // var mainContainer = document.getElementById("myData");
-        // for (var i = 0; i < data.length; i++) {
-        //     //console.log(data.length)
-        //     var div = document.createElement("div");
-        //     //div.innerHTML = 'Name: ' + data[i].title + 'Year: ' + data[i].publication_year;
-        //     var imageurl = data[i].book_cover;
-        //     console.log(imageurl);
-        //     document.getElementById("booktag").src = imageurl
-        //     document.getElementById("bname").innerText = "Title: " + data[i].title  
-        //     document.getElementById("bpages").innerText = "Number of Pages: " + data[i].num_pages
-        //     document.getElementById("isbn").innerText = "ISBN: " + data[i].book_id
-        //     document.getElementById("byear").innerText = "Published year: " + data[i].publication_year
-        //     document.getElementById("auname").innerText = "Author name: "+data[i].author_name
-        //     if(data[i].language_id == 1)
-        //     {
-        //       document.getElementById("blang").innerText = "Language: English"
-        //     }
-        //     else if(data[i].language_id == 2)
-        //     {
-        //       document.getElementById("blang").innerText = "Language: French"
-        //     }
-        //     else{
-        //       document.getElementById("blang").innerText = "Language: Spanish"
-        //     }
-
-            
-
-        //     mainContainer.appendChild(div);
-
-        //}
     }
     
     </script>
@@ -98,8 +65,8 @@
 
     <div class="header-2">
         <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#featured">featured</a>
+            <a href="MainPage.html">home</a>
+            <a href="AllBooks.html">All books</a>
             <a href="#fiction">fiction</a>
             <a href="#nonfiction">non-fiction</a>
             <a href="#contactus">contact us</a>
@@ -108,6 +75,9 @@
 
 </header>
 
+
+<h1  style="text-align:center"></h1>
+ 
 <!-- header section ends -->
 
 <!-- bottom navbar  -->
@@ -119,18 +89,21 @@
     <a href="#non-fiction" class="fas fa-comments"></a>
     <a href="#contactus" class="fas fa-blog"></a>
 </nav>
-<main class="container">
- 
-    <!-- Left Column / Headphones Image -->
-    <div class="left-column">
 
-      <img id ="booktag" alt="image exists"></img>
-    </div>
-   
+<header class="header">
+  <div class="header-3">
+  <nav class="navbar">
+      <a>ALL BOOKS IN OUR STORE</a>   
+  </nav>
+</div>
+
+</header>
+
+ 
    
     <!-- Right Column -->
-    <div class="right-column" id="test1">
-      <div id="myData"></div>
+<div id="test1">
+    <div id="myData"></div>
    
       <!-- Product Description -->
       <div class="product-description">
@@ -141,7 +114,8 @@
         <p id="byear">[PUBLISHED DATE]</p>
         <p id="isbn">[ISBN]</p>
       </div>
+</div>
 
-    </div>
-  </main>
+  </div>
+
 </body>
