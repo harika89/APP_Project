@@ -13,7 +13,78 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/book.css">
+    <script>
+      const params = new URLSearchParams(document.location.search);
+      bookId = params.get('bookId')
+      
+    fetch("http://localhost:3001/getBookDetails", {
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        bid: bookId
+      })
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      appendData(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    function determineLang(lang)
+            {
+              if(lang == 1)
+            {
+              document.getElementById("blang").innerText = "Language: English"
+            }
+            else if(lang == 2)
+            {
+              document.getElementById("blang").innerText = "Language: French"
+            }
+            else{
+              document.getElementById("blang").innerText = "Language: Spanish"
+            }
+            }
+    function appendData(data) {
+        var mainContainer = document.getElementById("myData");
+        for (var i = 0; i < data.length; i++) {
+            var div = document.createElement("div");
+            //div.innerHTML = 'Name: ' + data[i].title + 'Year: ' + data[i].publication_year;
+            var imageurl = data[i].book_cover;
+            console.log(imageurl);
+            document.getElementById("bookTag").src = imageurl
+            document.getElementById("bname").innerText = "Title: " + data[i].title
+            document.getElementById("bpages").innerText = "Number of Pages: " + data[i].num_pages
+            document.getElementById("isbn").innerText = "ISBN: " + data[i].book_id
+            document.getElementById("byear").innerText = "Published year: " + data[i].publication_year
+            document.getElementById("authName").innerText = "Author name: "+data[i].author_name
+            lang = data[i].language_id;
+            determineLang(lang)
 
+
+            // refactored code
+            // if(lang == 1)
+            // {
+            //   document.getElementById("blang").innerText = "Language: English"
+            // }
+            // else if(lang == 2)
+            // {
+            //   document.getElementById("blang").innerText = "Language: French"
+            // }
+            // else{
+            //   document.getElementById("blang").innerText = "Language: Spanish"
+            // }
+
+            
+
+            mainContainer.appendChild(div);
+
+        }
+      }
+      
+    </script>
 </head>
 <body>
     
@@ -33,6 +104,55 @@
         </div>
 
     </div>
+
+    <div class="header-2">
+        <nav class="navbar">
+            <a href="D:\app-backend\MainPage.html">home</a>
+            <a href="#featured">featured</a>
+            <a href="#fiction">fiction</a>
+            <a href="#nonfiction">non-fiction</a>
+            <a href="#contactus">contact us</a>
+        </nav>
+    </div>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- bottom navbar  -->
+
+<nav class="bottom-navbar">
+    <a href="#home" class="fas fa-home"></a>
+    <a href="#featured" class="fas fa-list"></a>
+    <a href="#fiction" class="fas fa-tags"></a>
+    <a href="#non-fiction" class="fas fa-comments"></a>
+    <a href="#contactus" class="fas fa-blog"></a>
+</nav>
+<main class="container">
+ 
+    <!-- Left Column / Headphones Image -->
+    <div class="left-column">
+
+      <img id ="bookTag" alt="image exists"></img>
+    </div>
+   
+   
+    <!-- Right Column -->
+    <div class="right-column">
+      <div id="myData"></div>
+   
+      <!-- Product Description -->
+      <div class="product-description">
+        <h1 id="bname">[BOOK TITLE]</h1>
+        <h2 id="authName">[AUTHOR NAME]</h2>
+        <p id="bpages">[PAGES]</p>
+        <p id="blang">[LANGUAGE]</p>
+        <p id="byear">[PUBLISHED DATE]</p>
+        <p id="isbn">[ISBN]</p>
+      </div>
+
+    </div>
+  </main>
 
     <div class="header-2">
         <nav class="navbar">
